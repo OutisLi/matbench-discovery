@@ -113,7 +113,7 @@
 <CommandMenu
   {actions}
   placeholder="Go to..."
-  dialog_style="top: 15vh; bottom: auto; overflow: visible"
+  dialog_props={{ style: `top: 15vh; bottom: auto; overflow: visible` }}
 />
 <CopyButton global />
 

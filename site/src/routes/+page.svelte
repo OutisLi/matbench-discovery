@@ -239,7 +239,7 @@
       bind:selected={col_preset}
       label="Column presets"
       options={col_preset_options}
-      tooltip_placement="top"
+      tooltip_options={{ placement: `top` }}
     />
   </div>
   <!-- the test-set selector only affects discovery metrics, so only show it in the
