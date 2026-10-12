@@ -8,7 +8,7 @@ Examples:
 """
 
 # /// script
-# requires-python = ">=3.14"
+# requires-python = ">=3.13"
 # dependencies = [
 #   "matbench-discovery[phonons,symmetry]",
 # ]
@@ -107,7 +107,7 @@ def kappa_model_keys() -> tuple[str, ...]:
     for model_key in CALCULATORS:
         try:
             KappaSettings.from_model(model_key)
-        except TypeError, ValueError:
+        except (TypeError, ValueError):
             continue
         model_keys.append(model_key)
     return tuple(model_keys)

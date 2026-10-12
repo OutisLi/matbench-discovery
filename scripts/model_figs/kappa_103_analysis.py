@@ -55,7 +55,7 @@ def canonical_spacegroup_numbers(
         value = df_reference.loc[material_id].get(Key.init_spg_num)
         try:
             numeric_value = float(value)
-        except TypeError, ValueError:
+        except (TypeError, ValueError):
             numeric_value = float("nan")
         if (
             isinstance(value, bool | np.bool_)

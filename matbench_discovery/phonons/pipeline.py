@@ -419,7 +419,7 @@ def checkpoint_digest(checkpoint: str | None) -> str | None:
                     },
                 )
                 return digest
-        except OSError, TypeError, ValueError:
+        except (OSError, TypeError, ValueError):
             return file_digest(checkpoint)
     return hashlib.sha256(checkpoint.encode()).hexdigest()
 

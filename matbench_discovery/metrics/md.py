@@ -9,6 +9,8 @@ The combined MD score (CMDS) is computed on the fly by the site from these
 components (like CPS), never here or in model YAMLs.
 """
 
+from __future__ import annotations
+
 import math
 from collections.abc import Sequence
 from fractions import Fraction

@@ -8,7 +8,7 @@ Examples:
 """
 
 # /// script
-# requires-python = ">=3.14"
+# requires-python = ">=3.13"
 # dependencies = [
 #   "ase>=3.28",
 #   "numpy",

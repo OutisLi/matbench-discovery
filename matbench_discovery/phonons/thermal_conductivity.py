@@ -9,6 +9,8 @@ across input structures which allows scaling thermal conductivity metric to larg
 sets. High-level orchestration lives in ``matbench_discovery.phonons.pipeline``.
 """
 
+from __future__ import annotations
+
 import warnings
 from collections.abc import Callable, Sequence
 from copy import deepcopy
@@ -297,9 +299,10 @@ def calculate_conductivity(
     ph3.run_thermal_conductivity(
         temperatures=temperatures,
         is_isotope=True,
-        # use MS-SMM19 (Wigner transport equation) to include both wave-like
-        # coherence (kappa_c) and particle-like (kappa_p) conductivity contributions
-        transport_type="MS-SMM19",
+        # SMM19 is the Wigner transport equation. It includes both wave-like
+        # coherence (kappa_c) and particle-like (kappa_p) conductivity.
+        # phono3py registers this solver as smm19-rta.
+        transport_type="SMM19",
         boundary_mfp=boundary_mfp,
     )
 
@@ -309,19 +312,22 @@ def calculate_conductivity(
     if extra is None or mode_cv is None:
         raise RuntimeError(f"missing kappa output for {ph3=}")
 
+    # phono3py 4 stores the Wigner solution as intra-band (particle) and
+    # inter-band (coherence) tensors with shape (sigma, temperature, 6).
+    kappa_p = deepcopy(np.asarray(extra["kappa_intra"])[0])
+    kappa_c = deepcopy(np.asarray(extra["kappa_inter"])[0])
+    # mode_kappa_matrix has shape (sigma, temperature, grid, band, band, 6).
+    # Summing one band axis assigns each pair once and recovers the total.
+    mode_kappa_total = deepcopy(np.asarray(kappa.mode_kappa_matrix)[0].sum(axis=2))
     kappa_dict: dict[str, np.ndarray] = {
-        MbdKey.kappa_tot_rta: deepcopy(extra["kappa_TOT_RTA"][0]),
-        MbdKey.kappa_p_rta: deepcopy(extra["kappa_P_RTA"][0]),
-        MbdKey.kappa_c: deepcopy(extra["kappa_C"][0]),
+        MbdKey.kappa_tot_rta: kappa_p + kappa_c,
+        MbdKey.kappa_p_rta: kappa_p,
+        MbdKey.kappa_c: kappa_c,
+        MbdKey.mode_kappa_tot_rta: mode_kappa_total,
         Key.mode_weights: deepcopy(kappa.grid_weights),
         Key.q_points: deepcopy(kappa.qpoints),
         Key.ph_freqs: deepcopy(kappa.frequencies),
     }
-    mode_kappa_total = kappa_dict[MbdKey.mode_kappa_tot_rta] = calc_mode_kappa_tot(
-        deepcopy(extra["mode_kappa_P_RTA"][0]),
-        deepcopy(extra["mode_kappa_C"][0]),
-        deepcopy(mode_cv),
-    )
 
     sum_mode_kappa_tot = mode_kappa_total.sum(
         axis=tuple(range(1, mode_kappa_total.ndim - 1))

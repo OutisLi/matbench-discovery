@@ -1,5 +1,7 @@
 """Enums used as keys/accessors for dicts and dataframes across Matbench Discovery."""
 
+from __future__ import annotations
+
 import functools
 import os
 import re

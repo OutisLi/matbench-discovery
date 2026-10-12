@@ -10,6 +10,8 @@ only used for the MD rollout (integrator + calculators) and interop (``to_ase`` 
 ``from_ase``).
 """
 
+from __future__ import annotations
+
 import os
 from dataclasses import dataclass
 from typing import TYPE_CHECKING

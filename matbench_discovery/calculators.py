@@ -54,7 +54,7 @@ def _cached_file_sha256(path: str) -> tuple[str, tuple[int, int, int]] | None:
     """Hash an existing cache entry, tolerating a concurrent atomic replacement."""
     try:
         return _stable_file_sha256(path) if _is_non_empty_file(path) else None
-    except FileNotFoundError, RuntimeError:
+    except (FileNotFoundError, RuntimeError):
         return None
 
 

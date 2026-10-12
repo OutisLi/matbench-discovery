@@ -20,12 +20,13 @@ keywords = [
 classifiers = [
   "Intended Audience :: Science/Research",
   "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
   "Topic :: Scientific/Engineering :: Chemistry",
   "Topic :: Scientific/Engineering :: Physics",
 ]
-requires-python = ">=3.14"
+requires-python = ">=3.13"
 dependencies = [
   "ase>=3.28",
   "filelock>=3.29",
@@ -49,9 +50,9 @@ Package = "https://pypi.org/project/matbench-discovery"
 [project.optional-dependencies]
 test = ["matbench-discovery[phonons]", "pytest-cov>=5", "pytest>=8.1", "jsonschema>=4"]
 fetch-wbm-data = ["gdown>=5.2"]
-# phono3py >=3.31 removed the MS-SMM19 RTA method used for Wigner transport.
+# phono3py 4 exposes Wigner transport through SMM19 and mode_kappa_matrix.
 # seekpath generates the high-symmetry q-path for the harmonic phonon sidecar
-phonons = ["phono3py==3.30.0", "phonopy>=2.35", "seekpath>=2.1"]
+phonons = ["phono3py>=4.7,<5", "phonopy>=4.7", "seekpath>=2.1"]
 # symmetry-analysis scripts + tests depend on moyopy
 symmetry = ["moyopy>=0.12"]
 
@@ -123,7 +124,7 @@ ignore-words-list = "nd,te,fpr,matris,titel"
 dev = ["prek>=0.4.5", "ty>=0.0.64"]
 
 [tool.ty.environment]
-python-version = "3.14"
+python-version = "3.13"
 
 [tool.ty.src]
 # PEP 723 model scripts carry their own requires-python / deps; type-check the library instead.

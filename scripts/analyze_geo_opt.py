@@ -15,6 +15,8 @@ Example usage:
     python scripts/analyze_geo_opt.py --workers 4  # use 4 CPU cores
 """
 
+from __future__ import annotations
+
 # %%
 import importlib
 import importlib.metadata
