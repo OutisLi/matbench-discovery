@@ -76,3 +76,40 @@ activations, a 6.0 Å cutoff, and up to 384 selected neighbors (~22.8M
 parameters). It was trained for 2×10⁶ steps with the HybridMuon optimizer, a WSD
 learning-rate schedule, MAE energy/force/virial loss weights 20/20/5, bf16 AMP,
 TF32 matmul, and `torch.compile` enabled.
+
+### DPA-4.1-OAM
+
+DPA-4.1-Max-OAM, DPA-4.1-Air-OAM and DPA-4.1C-Air-OAM are trained on MPtrj,
+OMat24 and sAlex (OSOD), with checkpoints released under CC-BY-4.0. Max and Air
+use the DPA4 architecture; C-Air uses the compact DPA4C architecture. Each model was trained
+in two stages, pre-training and then fine-tuning, with the HybridMuon optimizer.
+Step counts, hardware and training costs are recorded in the model cards.
+
+| Model | Parameters | Checkpoint and predictions |
+| --- | ---: | --- |
+| [DPA-4.1-Max-OAM](dpa-4.1-max-oam.yml) | 99,009,258 | [Figshare](https://figshare.com/articles/dataset/DPA-4_1-Max-OAM_model_checkpoint_and_Matbench_Discovery_predictions/34755060) |
+| [DPA-4.1-Air-OAM](dpa-4.1-air-oam.yml) | 5,147,909 | [Figshare](https://figshare.com/articles/dataset/DPA-4_1-Air-OAM_model_checkpoint_and_Matbench_Discovery_predictions/34755042) |
+| [DPA-4.1C-Air-OAM](dpa-4.1c-air-oam.yml) | 433,673 | [Figshare](https://figshare.com/articles/dataset/DPA-4_1C-Air-OAM_model_checkpoint_and_Matbench_Discovery_predictions/34755132) |
+
+#### Inference
+
+The released files are training checkpoints. The shared calculator exports each
+checkpoint to a `.pt2` archive on first use (`dp --pt freeze` for DPA4,
+`dp --pt-expt freeze` for DPA4C) and evaluates it with DeePMD-kit's `DeepPot`
+and `DP.calculate`. Exports are cached by checkpoint content, backend, GPU model
+and compute capability, and kernel policy. The first export of the Max model can
+take a long time because of kernel tuning. Set `DP_TRITON_INFER` and
+`DP_CUDA_INFER` before the export to choose the kernel policy, which is baked
+into the archive. DeePMD-kit selects its device at import time: use
+`CUDA_VISIBLE_DEVICES` to select one GPU, or set `DEVICE=cpu` for CPU inference.
+
+The DPA4 models use the uv project `models/deepmd/dpa41-env` with PyTorch
+2.11.0+cu128 (the DPA4 export needs PyTorch 2.11 to 2.13); DPA4C uses
+`models/deepmd/dpa41c-env` with PyTorch 2.10.0+cu126. Both pin DeePMD-kit commit
+`b94c0043eac81c06c123563295875055e37c43ae` and Python 3.14, build DeePMD-kit
+from source, and need Linux x86-64, a CUDA toolkit with `nvcc` and a C++
+compiler. Run the shared runners as described in the contributing guide, e.g.
+
+```sh
+uv run models/run_discovery.py --print-cmd --model dpa-4.1-max-oam --dry-run
+```
