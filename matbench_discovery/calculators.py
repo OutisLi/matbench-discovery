@@ -1045,6 +1045,9 @@ CALCULATORS: _CalcRegistry = _CalcRegistry(
         "dpa_4_1_max_oam": _deepmd_spec(
             "dpa_4_1_max_oam", _deepmd_graph("--pt"), ext=".pt"
         ),
+        "dpa_4_1c_air_oam": _deepmd_spec(
+            "dpa_4_1c_air_oam", _deepmd_graph("--pt-expt"), ext=".pt"
+        ),
         "equflash_29m_oam": _checkpoint_spec("equflash_29m_oam", _equflash, ext=".pt"),
         "equflashv2_45m_oam": _checkpoint_spec(
             "equflashv2_45m_oam", _equflash, ext=".pt"
