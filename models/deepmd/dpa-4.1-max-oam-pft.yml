@@ -121,6 +121,8 @@ notes:
   checkpoint: 'EMA weights at the end of epoch 3 (cycle 1,497) of the run with seed 20261022; 396,378,582 bytes, md5 0a36ac5b62b4d0512fd776546ca24c77.'
   disclosure: 'The Hessian loss weight of 2000 was chosen with reference to κ-103: in earlier runs the κ-103 error decreased as the weight went from 300 to 1000, so we raised it further. The soft-mode anchors were selected by a rule fixed before training that excludes every chemical formula in κ-103, and their targets are the base model''s own Hessians rather than DFT labels. The submitted checkpoint is the fixed endpoint at the end of epoch 3, not an intermediate checkpoint.'
   predictions: 'Discovery predictions are the 4-decimal output of the official writer. Metrics were computed with matbench-discovery commit 2b7bff925a6aff10240cf6ef0f59149f51adff7b, κ-103 with its runner and phono3py 3.30.0.'
+  md_diatomics: 'MD and diatomics used the frozen AOTInductor (.pt2) export of the checkpoint (dp --pt freeze), run with Python 3.14.7, PyTorch 2.13.0+cu130 and DeePMD-kit 3.2.1.dev36+ga78bdfe8d, one process per NVIDIA RTX PRO 6000 Blackwell Server Edition GPU. MD: 20 ps NVT for each of the 17 DynaMat v1.0 systems (80,000 steps of 0.25 fs, every 10th step recorded, seed 0); run_time_sec is the sum of the 17 per-system wall times. At frames 0, 4,000 and 8,000 of every trajectory, energies, forces and stresses from the eager checkpoint agree with the frozen model (largest differences over the 51 checks: 5.7e-7 eV/atom, 1.1e-5 eV/Å and 5.3e-8 eV/Å³). Energy and force RMSE need the private labelled reference and are not included. Diatomics: 92 homonuclear curves (H to U) at 119 geometrically spaced distances from 0.1 to 6 Å.'
+  diatomics_short_range: 'Diatomic curves were computed with the frozen (AOTInductor .pt2) export of the checkpoint. At short range the frozen and eager float32 models differ above the 1e-4 parity tolerance for Ne and Ar (relative L2 force difference 3.4e-4 and 1.7e-4); a float64 evaluation of the same parameters shows that both float32 paths deviate from it by similar amounts (Ne: 5.9e-4 frozen, 6.3e-4 eager; Ar: 9.8e-5 frozen, 1.4e-4 eager), so the difference is float32 round-off. Replacing the 12 parity-checked curves by their eager versions, or the Ne and Ar curves by their float64 versions, changes no mean metric by more than 2.1e-4 (relative) and leaves metric coverage unchanged. No elements were excluded.'
 
 metrics:
   discovery:
@@ -215,8 +217,50 @@ metrics:
       max_rss_gb: 3.2
       max_gpu_mem_gb: 62.901
   md:
-    status: pending
-    reason: not run
+    pred_file:
+      name: models/deepmd/dpa-4.1-max-oam-pft/2026-10-29-md-metrics.csv.gz
+      url: TODO
+      size: 1584
+      md5: 71afcf8e8f47c7c94b32580c9dd53d0e
+    hardware: NVIDIA RTX PRO 6000 Blackwell Server Edition
+    run_time_sec: 220585.84 # s
+    max_rss_gb: 3.176 # GB
+    max_gpu_mem_gb: 22.277 # GB
+    rdf_error: 3.1153083079884705 # %
+    adf_error: 1.2417662497983921 # %
+    vdos_error: 20.947793631084863 # %
+    pressure_mae: 0.8043204017408606 # GPa
+    pressure_wasserstein: 0.8092138148514286 # GPa
+    pressure_error: 47.44151886982793 # %
+    n_systems: 17 # count
   diatomics:
-    status: pending
-    reason: not run
+    pred_file:
+      name: models/deepmd/dpa-4.1-max-oam-pft/2026-10-28-diatomics.json.gz
+      url: TODO
+      size: 503988
+      md5: a9091d8913ef8de525bc5982980e9296
+    hardware: NVIDIA RTX PRO 6000 Blackwell Server Edition
+    run_time_sec: 258.12
+    max_rss_gb: 3.192
+    max_gpu_mem_gb: 0.765
+    excluded_formula_reasons: {}
+    pbe_wall_dist_mae: 0.6033028272652039
+    pbe_energy_mae: 9.220643949905325
+    pbe_bond_length_error: 0.28928598490914725
+    pbe_well_depth_error: 8.189319209662646
+    pbe_vib_freq_error: 694.6825945923609
+    tortuosity: 1.364541468896109
+    energy_diff_flips: 3.3563218390804597
+    energy_jump: 671.9181709197061
+    force_flips: 3.5977011494252875
+    force_total_variation: 49283.45265688416
+    force_jump: 57625.90688349253
+    pbe_force_mae: 53.758172483420005
+    pbe_vib_freq_coverage:
+      n_valid: 70
+      n_eligible: 73
+      failed_elements:
+      - F
+      - Te
+      - Tl
+      missing_elements: []
