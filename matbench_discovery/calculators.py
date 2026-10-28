@@ -1039,6 +1039,9 @@ CALCULATORS: _CalcRegistry = _CalcRegistry(
         "dpa_4_0_1_pro_mptrj": _deepmd_spec(
             "dpa_4_0_1_pro_mptrj", _deepmd_freeze, ext=".pt"
         ),
+        "dpa_4_1_air_oam": _deepmd_spec(
+            "dpa_4_1_air_oam", _deepmd_graph("--pt"), ext=".pt"
+        ),
         "dpa_4_1_max_oam": _deepmd_spec(
             "dpa_4_1_max_oam", _deepmd_graph("--pt"), ext=".pt"
         ),
