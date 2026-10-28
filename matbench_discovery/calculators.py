@@ -1045,6 +1045,9 @@ CALCULATORS: _CalcRegistry = _CalcRegistry(
         "dpa_4_1_max_oam": _deepmd_spec(
             "dpa_4_1_max_oam", _deepmd_graph("--pt"), ext=".pt"
         ),
+        "dpa_4_1_max_oam_pft": _deepmd_spec(
+            "dpa_4_1_max_oam_pft", _deepmd_graph("--pt"), ext=".pt"
+        ),
         "dpa_4_1c_air_oam": _deepmd_spec(
             "dpa_4_1c_air_oam", _deepmd_graph("--pt-expt"), ext=".pt"
         ),
