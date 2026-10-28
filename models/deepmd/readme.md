@@ -6,7 +6,7 @@ DPA3 is an advanced interatomic potential leveraging the message-passing archite
 
 ### Model
 
-- DPA-3.1-3M-FT：model pretrained on the `OpenLAM` datasest (using DPA-3.1-3M from [DPA3-paper](https://arxiv.org/abs/2506.01686)), and finetuned with `MPtraj` & `Sub-Alex` datasets.
+- DPA-3.1-3M-FT：model pretrained on the `OpenLAM` datasest (using DPA-3.1-3M from [DPA3-paper](https://arxiv.org/abs/2506.01686)), and finetuned with `MPtraj` & `Sub-Alex` datasets. Superseded by DPA-4.1-Max-OAM.
 
   ```bash
   wget https://figshare.com/files/55141895
@@ -80,10 +80,12 @@ TF32 matmul, and `torch.compile` enabled.
 ### DPA-4.1-OAM
 
 DPA-4.1-Max-OAM, DPA-4.1-Air-OAM and DPA-4.1C-Air-OAM are trained on MPtrj,
-OMat24 and sAlex (OSOD), with checkpoints released under CC-BY-4.0. Max and Air
+OMat24 and sAlex (OSOD), with checkpoints released under CC-BY-4.0.
+DPA-4.1-Max-OAM supersedes DPA-3.1-3M-FT. Max and Air
 use the DPA4 architecture; C-Air uses the compact DPA4C architecture. Each model was trained
 in two stages, pre-training and then fine-tuning, with the HybridMuon optimizer.
-Step counts, hardware and training costs are recorded in the model cards.
+DPA-4.1-Max-OAM-PFT is the Max checkpoint after phonon fine-tuning. Step counts,
+hardware and training costs are recorded in the model cards.
 
 | Model | Parameters | Checkpoint and predictions |
 | --- | ---: | --- |
@@ -103,12 +105,11 @@ take a long time because of kernel tuning. Set `DP_TRITON_INFER` and
 into the archive. DeePMD-kit selects its device at import time: use
 `CUDA_VISIBLE_DEVICES` to select one GPU, or set `DEVICE=cpu` for CPU inference.
 
-The DPA4 models use the uv project `models/deepmd/dpa41-env` with PyTorch
-2.11.0+cu128 (the DPA4 export needs PyTorch 2.11 to 2.13); DPA4C uses
-`models/deepmd/dpa41c-env` with PyTorch 2.10.0+cu126. Both pin DeePMD-kit commit
-`b94c0043eac81c06c123563295875055e37c43ae` and Python 3.14, build DeePMD-kit
-from source, and need Linux x86-64, a CUDA toolkit with `nvcc` and a C++
-compiler. Run the shared runners as described in the contributing guide, e.g.
+DPA4 and DPA4C, including DPA-4.1-Max-OAM-PFT, use the uv project
+`models/deepmd/dpa41-env` with PyTorch 2.13.0+cu132 and Python 3.14. DeePMD-kit
+is installed from the `master` branch, so the environment follows the current
+source rather than a fixed commit. The project builds DeePMD-kit from source
+and needs Linux x86-64, a CUDA toolkit with `nvcc` and a C++ compiler. Run the shared runners as described in the contributing guide, e.g.
 
 ```sh
 uv run models/run_discovery.py --print-cmd --model dpa-4.1-max-oam --dry-run
