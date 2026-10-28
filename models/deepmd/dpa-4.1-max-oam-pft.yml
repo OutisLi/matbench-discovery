@@ -208,8 +208,8 @@ metrics:
       run_info_file:
         name: models/deepmd/dpa-4.1-max-oam-pft/2026-10-27-phonons-kappa-103-run-info.json
         url: TODO
-        size: 5156
-        md5: 95d053b0b892ddb933f903378322aea0
+        size: 4991
+        md5: e18401cf7413c3e9a04259f463761652
       hardware: NVIDIA RTX PRO 6000 Blackwell Server Edition
       run_time_sec: 15413.45
       max_rss_gb: 3.2
