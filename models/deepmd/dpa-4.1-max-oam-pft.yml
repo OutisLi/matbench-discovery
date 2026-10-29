@@ -41,7 +41,7 @@ doi: https://doi.org/10.48550/arXiv.2606.02419
 paper: https://arxiv.org/abs/2606.02419
 docs: https://github.com/deepmodeling/deepmd-kit
 pr_url: null # TODO: set to the upstream pull request URL once it is opened
-checkpoint_url: TODO # TODO: direct download URL after upload
+checkpoint_url: https://ndownloader.figshare.com/files/70836393
 license:
   code: LGPL-3.0
   code_url: https://github.com/deepmodeling/deepmd-kit/blob/master/LICENSE
@@ -128,7 +128,7 @@ metrics:
   discovery:
     pred_file:
       name: models/deepmd/dpa-4.1-max-oam-pft/2026-10-27-discovery.csv.gz
-      url: TODO
+      url: https://ndownloader.figshare.com/files/70836372
       size: 1315880
       md5: 5b512c60ef4817efcecdbb90a11bf07a
     full_test_set:
@@ -162,7 +162,7 @@ metrics:
   geo_opt:
     pred_file:
       name: models/deepmd/dpa-4.1-max-oam-pft/2026-10-27-geo-opt.jsonl.gz
-      url: TODO
+      url: https://ndownloader.figshare.com/files/70836387
       size: 104178833
       md5: 163c7c4e45e0b7a3c5ba14963e630c11
     symprec=1e-5:
@@ -174,7 +174,7 @@ metrics:
       n_structures: 256963
       analysis_file:
         name: models/deepmd/dpa-4.1-max-oam-pft/2026-10-27-geo-opt-symprec=1e-5-moyo=0.21.0.csv.gz
-        url: TODO
+        url: https://ndownloader.figshare.com/files/70836378
         size: 6835142
         md5: 409b56d127d89c371a209dd14e108374
     symprec=1e-2:
@@ -186,7 +186,7 @@ metrics:
       n_structures: 256963
       analysis_file:
         name: models/deepmd/dpa-4.1-max-oam-pft/2026-10-27-geo-opt-symprec=1e-2-moyo=0.21.0.csv.gz
-        url: TODO
+        url: https://ndownloader.figshare.com/files/70836375
         size: 6944171
         md5: d7bc80ac9d17fc01d237e335c9e64195
   phonons:
@@ -199,17 +199,17 @@ metrics:
       spectrum_w1: 0.0437
       pred_file:
         name: models/deepmd/dpa-4.1-max-oam-pft/2026-10-27-phonons-kappa-103.json.gz
-        url: TODO
+        url: https://ndownloader.figshare.com/files/70836384
         size: 15621739
         md5: 855ad360242599963c5f2c7f32611aa2
       force_file:
         name: models/deepmd/dpa-4.1-max-oam-pft/2026-10-27-phonons-kappa-103-forces.json.gz
-        url: TODO
+        url: https://ndownloader.figshare.com/files/70836390
         size: 253418078
         md5: 0cf77f6bac1b27f0f3a925f18a71c888
       run_info_file:
         name: models/deepmd/dpa-4.1-max-oam-pft/2026-10-27-phonons-kappa-103-run-info.json
-        url: TODO
+        url: https://ndownloader.figshare.com/files/70836381
         size: 4991
         md5: e18401cf7413c3e9a04259f463761652
       hardware: NVIDIA RTX PRO 6000 Blackwell Server Edition
@@ -219,7 +219,7 @@ metrics:
   md:
     pred_file:
       name: models/deepmd/dpa-4.1-max-oam-pft/2026-10-29-md-metrics.csv.gz
-      url: TODO
+      url: https://ndownloader.figshare.com/files/70836369
       size: 1584
       md5: 71afcf8e8f47c7c94b32580c9dd53d0e
     hardware: NVIDIA RTX PRO 6000 Blackwell Server Edition
@@ -236,7 +236,7 @@ metrics:
   diatomics:
     pred_file:
       name: models/deepmd/dpa-4.1-max-oam-pft/2026-10-28-diatomics.json.gz
-      url: TODO
+      url: https://ndownloader.figshare.com/files/70836366
       size: 503988
       md5: a9091d8913ef8de525bc5982980e9296
     hardware: NVIDIA RTX PRO 6000 Blackwell Server Edition

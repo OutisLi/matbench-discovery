@@ -92,6 +92,7 @@ hardware and training costs are recorded in the model cards.
 | [DPA-4.1-Max-OAM](dpa-4.1-max-oam.yml) | 99,009,258 | [Figshare](https://figshare.com/articles/dataset/DPA-4_1-Max-OAM_model_checkpoint_and_Matbench_Discovery_predictions/34755060) |
 | [DPA-4.1-Air-OAM](dpa-4.1-air-oam.yml) | 5,147,909 | [Figshare](https://figshare.com/articles/dataset/DPA-4_1-Air-OAM_model_checkpoint_and_Matbench_Discovery_predictions/34755042) |
 | [DPA-4.1C-Air-OAM](dpa-4.1c-air-oam.yml) | 433,673 | [Figshare](https://figshare.com/articles/dataset/DPA-4_1C-Air-OAM_model_checkpoint_and_Matbench_Discovery_predictions/34755132) |
+| [DPA-4.1-Max-OAM-PFT](dpa-4.1-max-oam-pft.yml) | 99,005,146 | [Figshare](https://figshare.com/articles/dataset/DPA-4_1-Max-OAM-PFT_model_checkpoint_and_Matbench_Discovery_predictions/34846080) |
 
 #### Inference
 
